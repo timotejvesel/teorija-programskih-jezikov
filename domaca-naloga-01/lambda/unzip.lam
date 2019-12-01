@@ -1,0 +1,6 @@
+LET REC unzip sez =
+    MATCH sez WITH
+    | [] -> {[], []}
+    | e :: es -> LET sez1 = unzip es IN {FST e :: FST sez1, SND e :: SND sez1 }
+IN 
+unzip ({2, 0} :: {12, 33} :: {4, 6} :: {4 * 2, ((FUN x -> x * x * x) (1 + 2))} :: [])

@@ -1,0 +1,32 @@
+map za primer:
+
+map (FUN x -> x + (x * x) + 12) ((2 + 2) :: 1 :: (4 * 2) :: 0 :: ((FUN x -> x + 3) 2) :: [])
+map (FUN x -> x * x)  (1 :: 2 :: 3 :: [])
+
+unzip primer:
+
+unzip ({2, 0} :: {12, 33} :: {4, 6} :: {4 * 2, ((FUN x -> x * x * x) (1 + 2))} :: [])
+unzip ({1, 2} :: {3, 4} :: [])
+
+
+MALI KORAKI:
+(FUN unzip -> unzip ({1, 2} :: {3, 4} :: [])) (REC unzip sez -> MATCH sez WITH | [] -> {[], []} | e::es -> (FUN sez1 -> {FST e :: FST sez1, SND e :: SND sez1}) (unzip es))  
+  ~>
+(REC unzip sez -> MATCH sez WITH | [] -> {[], []} | e::es -> (FUN sez1 -> {FST e :: FST sez1, SND e :: SND sez1}) (unzip es)) ({1, 2} :: {3, 4} :: [])
+  ~>
+MATCH {1, 2} :: {3, 4} :: [] WITH | [] -> {[], []} | e::es -> (FUN sez1 -> {FST e :: FST sez1, SND e :: SND sez1}) ((REC unzip sez -> MATCH sez WITH | [] -> {[], []} | e::es -> (FUN sez1 -> {FST e :: FST sez1, SND e :: SND sez1}) (unzip es)) es)
+  ~>
+{FST {1, 2} :: FST ((REC unzip sez -> MATCH sez WITH | [] -> {[], []} | e::es -> (FUN sez1 -> {FST e :: FST sez1, SND e :: SND sez1}) (unzip es)) ({3, 4} :: [])), SND {1, 2} :: SND ((REC unzip sez -> MATCH sez WITH | [] -> {[], []} | e::es -> (FUN sez1 -> {FST e :: FST sez1, SND e :: SND sez1}) (unzip es)) ({3, 4} :: []))}
+
+MALI KORAKI:
+(FUN unzip -> unzip ({1, 2} :: {3, 4} :: [])) (REC unzip sez -> MATCH sez WITH | [] -> {[], []} | e::es -> (FUN sez1 -> {FST e :: FST sez1, SND e :: SND sez1}) (unzip es))   
+  ~>
+(REC unzip sez -> MATCH sez WITH | [] -> {[], []} | e::es -> (FUN sez1 -> {FST e :: FST sez1, SND e :: SND sez1}) (unzip es)) ({1, 2} :: {3, 4} :: [])
+  ~>
+MATCH {1, 2} :: {3, 4} :: [] WITH | [] -> {[], []} | e::es -> (FUN sez1 -> {FST e :: FST sez1, SND e :: SND sez1}) ((REC unzip sez -> MATCH sez WITH | [] -> {[], []} | e::es 
+-> (FUN sez1 -> {FST e :: FST sez1, SND e :: SND sez1}) (unzip es)) es)
+  ~>
+(FUN sez1 -> {FST {1, 2} :: FST sez1, SND {1, 2} :: SND sez1}) ((REC unzip sez -> MATCH sez WITH | [] -> {[], []} | e::es -> (FUN sez1 -> {FST e :: FST sez1, SND e :: SND sez1}) (unzip es)) ({3, 4} :: []))
+  ~>
+{FST {1, 2} :: FST ((REC unzip sez -> MATCH sez WITH | [] -> {[], []} | e::es -> (FUN sez1 -> {FST e :: FST sez1, SND e :: SND sez1}) (unzip es)) ({3, 4} :: [])), SND {1, 2} 
+:: SND ((REC unzip sez -> MATCH sez WITH | [] -> {[], []} | e::es -> (FUN sez1 -> {FST e :: FST sez1, SND e :: SND sez1}) (unzip es)) ({3, 4} :: []))}
