@@ -3,4 +3,4 @@ LET REC fib n =
     ELSE IF n = 1 THEN 1
     ELSE fib (n - 1) + fib (n - 2)
 IN
-fib 10
+fib 3

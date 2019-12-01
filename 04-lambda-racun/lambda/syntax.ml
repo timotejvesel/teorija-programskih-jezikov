@@ -72,4 +72,4 @@ and string_of_exp0 = function
   | Var x -> x
   | e -> "(" ^ string_of_exp3 e ^ ")"
 
-let string_of_exp = string_of_exp5
+let string_of_exp = string_of_exp3  

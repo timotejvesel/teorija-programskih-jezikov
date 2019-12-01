@@ -1,3 +1,6 @@
-LET fact = REC fact n -> IF n = 0 THEN 1 ELSE n * fact (n - 1)
+LET fact = 
+REC fact n -> 
+IF n = 0 THEN 1
+ELSE n * fact (n - 1)
 IN
-fact 6
+fact 20
