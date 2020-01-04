@@ -1,2 +1,0 @@
-IF ((TRUE :: []) {0, 1}) THEN TRUE
-ELSE FALSE
