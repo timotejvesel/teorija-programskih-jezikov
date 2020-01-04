@@ -114,10 +114,10 @@ let rec subst_ty sbst = function
       | None -> t
       | Some t' -> t'
       end
-    | IntTy | BoolTy as t -> t
-    | ArrowTy (t1, t2) -> ArrowTy (subst_ty sbst t1, subst_ty sbst t2)
-    | ProdTy (t1, t2) -> ProdTy (subst_ty sbst t1, subst_ty sbst t2)
-    | ListTy t -> ListTy (subst_ty sbst t)
+  | IntTy | BoolTy as t -> t
+  | ArrowTy (t1, t2) -> ArrowTy (subst_ty sbst t1, subst_ty sbst t2)
+  | ProdTy (t1, t2) -> ProdTy (subst_ty sbst t1, subst_ty sbst t2)
+  | ListTy t -> ListTy (subst_ty sbst t)
 
 let string_of_param (Param a) =
   let max_alpha = int_of_char 'z' - int_of_char 'a' + 1 in
